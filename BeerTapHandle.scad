@@ -1,8 +1,8 @@
-handle_height = 150;
-handle_diameter = 25;
-inner_od = 20;
-bottom_pillar_height = 30;
-shieldSize = 100;
+handle_height = 50;
+handle_diameter = 12;
+inner_od = 12;
+bottom_pillar_height = 10;
+shieldSize = 50;
 fn = 100;
 
 
@@ -83,7 +83,7 @@ module shield(h,b,t)
 module main()
 {
     rotate([-90,0,0])
-        translate([0,-handle_height-shieldSize,0])
+        translate([0,-handle_height-shieldSize-bottom_pillar_height+shieldSize/5,0])
             shield(shieldSize,shieldSize,10);
     
 	difference()
