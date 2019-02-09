@@ -1,6 +1,6 @@
 handle_height = 50;
-handle_diameter = 12;
-inner_od = 12;
+handle_diameter = 10;
+inner_od = 10;
 bottom_pillar_height = 10;
 shieldSize = 50;
 fn = 100;
@@ -89,7 +89,7 @@ module main()
 	difference()
 	{
         beer_tap_handle();
-        translate([2.,-3,-2])
+        translate([1.5,-3.5,-2])
           import ("BeerTapHandle-Thread.stl", convexity = 4);
     }
 }
