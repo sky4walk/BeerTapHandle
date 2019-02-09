@@ -2,6 +2,7 @@ handle_height = 150;
 handle_diameter = 25;
 inner_od = 20;
 bottom_pillar_height = 30;
+shieldSize = 100;
 fn = 100;
 
 
@@ -42,14 +43,55 @@ module beer_tap_handle()
 	}
 }
 
+module fillet(r, h) {
+    translate([r / 2, r / 2, 0])
+
+        difference() {
+            cube([r + 0.01, r + 0.01, h], center = true);
+
+            translate([r/2, r/2, 0])
+                cylinder(r = r, h = h + 1, center = true);
+
+        }
+}
+
+module shield(h,b,t) 
+{
+    difference() {
+        cube([h, b, t], center = true);
+        translate([-h/2, -b/2, 0])
+            fillet(h/4,t+1);
+        translate([-h/2, b/2, 0])
+            rotate([0,0,-90])
+                fillet(h/4,t+1);
+        translate([h/2, -b/2, 0])
+            rotate([0,0,90])
+                fillet(h/4,t+1);
+        translate([h/2, b/2, 0])
+            rotate([0,0,180])
+                fillet(h/4,t+1);
+    }
+    translate([0,b/2-2, 0])
+        rotate([0,0,0])
+            fillet(h/3,t+1);
+    translate([0,b/2-2, 0])
+        mirror([1,0,0]) 
+            fillet(h/3,t+1);
+
+}
+
 module main()
 {
+    rotate([-90,0,0])
+        translate([0,-handle_height-shieldSize,0])
+            shield(shieldSize,shieldSize,10);
+    
 	difference()
 	{
         beer_tap_handle();
         translate([2.,-3,-2])
           import ("BeerTapHandle-Thread.stl", convexity = 4);
-	}
+    }
 }
 
 main();
